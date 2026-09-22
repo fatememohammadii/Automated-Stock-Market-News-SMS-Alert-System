@@ -1,101 +1,46 @@
 # Automated Stock Market News SMS Alert System
 
 ## Project Overview
-
-This Python project provides an automated monitoring and alert system for stock price movements. It tracks daily closing price fluctuations for a target stock (e.g., Tesla / `TSLA`). When a significant price movement is detected, the script automatically fetches top relevant news headlines and dispatches instant updates via SMS/WhatsApp using the Twilio API.
-
----
-
-## Key Features
-
-* **Stock Movement Tracking:** Fetches daily closing prices from Alpha Vantage API and calculates percentage variations between consecutive trading days.
-* **Targeted News Fetching:** Queries the News API for recent articles referencing the company when stock price changes exceed a defined threshold.
-* **Automated Notifications:** Formats key headlines with custom directional indicators (🔺/🔻) and delivers messages directly to a phone or WhatsApp account via Twilio.
+This Python project provides an automated monitoring and alert system for stock price movements. It tracks daily closing price fluctuations for a target stock (e.g., Tesla / `TSLA`). When a significant price movement is detected, the script automatically fetches top relevant news headlines and dispatches instant updates via SMS or WhatsApp using the Twilio API.
 
 ---
 
-## Project Workflow
-
-1. **Fetch Market Data:**
-* Calls the Alpha Vantage `TIME_SERIES_DAILY` endpoint.
-
-
-* Compares yesterday's closing price with the day prior to calculate price difference and percentage shift.
-
-
-
-
-2. **Trigger Condition & News Filtering:**
-* Evaluates if the price variance breaches the threshold percentage.
-
-
-* If triggered, requests latest articles from News API matching the company name.
-
-
-* Extracts the top 3 relevant articles.
-
-
-
-
-3. **Format & Dispatch:**
-* Constructs formatted message payloads including stock ticker, percentage change, news headline, and brief summary.
-
-
-* Dispatches each payload as an SMS/WhatsApp message via Twilio Client.
-
-
-
-
+## Technical Features
+* **Stock Movement Analysis:** Retrieves daily closing prices from the Alpha Vantage API and calculates percentage variations between consecutive trading days.
+* **Contextual News Fetching:** Queries the News API for recent news articles referencing the target company when price shifts exceed a specified threshold.
+* **Automated Notifications:** Formats key headlines with directional indicators (🔺/🔻) and delivers messages directly to a phone or WhatsApp account via Twilio.
+* **Secure Credential Handling:** Utilizes system environment variables to prevent hardcoding API keys and sensitive tokens.
 
 ---
 
 ## Tech Stack & APIs
-
 * **Language:** Python 3
-
-
 * **Libraries:** `requests`, `twilio`
-
-
 * **APIs Used:**
-* [Alpha Vantage API](https://www.alphavantage.co/?utm_source=gemini) (Stock market data)
-
-
-* [News API](https://newsapi.org/?utm_source=gemini) (Real-time news articles)
-
-
-* [Twilio API](https://www.twilio.com/?utm_source=gemini) (SMS/WhatsApp Messaging Service)
-
-
-
-
+  * [Alpha Vantage API](https://www.alphavantage.co/) (Stock market data)
+  * [News API](https://newsapi.org/) (Real-time news articles)
+  * [Twilio API](https://www.twilio.com/) (SMS/WhatsApp Messaging Service)
 
 ---
 
-## Setup & Environment Variables
+## Setup & Configuration
 
-### Prerequisites
-
-Install required Python dependencies:
-
+### 1. Prerequisites
+Install required dependencies:
 ```bash
 pip install requests twilio
 
 ```
 
-### Configuration
+### 2. Environment Variables
 
-Update the script configuration or set environment variables for your credentials:
+To keep API credentials secure, set the following environment variables on your system or inside a `.env` file (ensure your `.env` is listed in `.gitignore`):
 
-```python
-STOCK_NAME = "TSLA"
-COMPANY_NAME = "Tesla Inc"
-
-STOCK_API_KEY = "YOUR_ALPHA_VANTAGE_KEY"
-NEWS_API_KEY = "YOUR_NEWS_API_KEY"
-
-TWILIO_SID = "YOUR_TWILIO_ACCOUNT_SID"
-TWILIO_AUTH_TOKEN = "YOUR_TWILIO_AUTH_TOKEN"
+```bash
+export STOCK_API_KEY="your_alpha_vantage_key"
+export NEWS_API_KEY="your_news_api_key"
+export TWILIO_SID="your_twilio_account_sid"
+export TWILIO_AUTH_TOKEN="your_twilio_auth_token"
 
 ```
 
@@ -112,11 +57,15 @@ Brief: An analysis of recent portfolio filings regarding major positions followi
 
 ---
 
-## Usage Instructions
+## Execution
 
-Run the script manually or schedule it as a daily cron job:
+Run the script manually or configure it as a scheduled daily job:
 
 ```bash
 python stock-data.py
+
+```
+
+```
 
 ```
